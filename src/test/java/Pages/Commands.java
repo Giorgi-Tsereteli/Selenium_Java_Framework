@@ -1,9 +1,10 @@
 package Pages;
 
 import Web.MyDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.Set;
 
 public class Commands {
 
@@ -48,4 +49,37 @@ public class Commands {
         dropdown.selectByVisibleText(dataToSelect);
     }
 
+    public Set<String> myWindowHandles() {
+        return MyDriver.getDriver().getWindowHandles();
+    }
+
+    public String pageTitle(){
+        return MyDriver.getDriver().getTitle();
+    }
+
+    public WebElement scrollToElement(By locator) {
+        WebElement element = null;
+        for (int i=0 ; i <= 15 ; i++) {
+            try {
+                element = findWebElement(locator); // <-- what is the action? What will cause exception ?
+                break;                             // it finds WebElement right away, without scrolling
+            } catch (ElementClickInterceptedException | NoSuchElementException e) {
+                JavascriptExecutor js =  (JavascriptExecutor) MyDriver.getDriver();
+                js.executeScript("scrollBy(0,150)");
+            }
+        }
+        return element;
+    }
+
+    public void scrollAndClickElement(By locator) {
+        for (int i = 0; i < 20; i++) {
+            try {
+                findWebElement(locator).click();
+                break;
+            } catch (NoSuchElementException | ElementClickInterceptedException e) {
+                JavascriptExecutor js = (JavascriptExecutor) MyDriver.getDriver();
+                js.executeScript("scrollBy(0,200)");
+            }
+        }
+    }
 }

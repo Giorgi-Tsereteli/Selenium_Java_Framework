@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class SignUpPage extends Commands {
 
-    // Locators
+    // Locator Variables
     By monthDdLocator = By.id("month");
     By yearDdLocator = By.id("year");
     By dayDdLocator = By.id("day");

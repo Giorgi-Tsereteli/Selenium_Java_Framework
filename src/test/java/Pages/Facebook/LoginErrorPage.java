@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class LoginErrorPage extends Commands {
 
-    // Locators
+    // Locator Variables
     By loginErrorLocator = By.xpath("//div[text()='The email or mobile number you entered isn’t connected to an account. ']");
 
 
