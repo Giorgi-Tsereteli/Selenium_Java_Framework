@@ -78,7 +78,7 @@ public class Commands {
                 break;
             } catch (NoSuchElementException | ElementClickInterceptedException e) {
                 JavascriptExecutor js = (JavascriptExecutor) MyDriver.getDriver();
-                js.executeScript("scrollBy(0,100)");
+                js.executeScript("scrollBy(0,200)");
             }
         }
     }

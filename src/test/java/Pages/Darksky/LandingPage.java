@@ -1,7 +1,6 @@
 package Pages.Darksky;
 
 import Pages.Commands;
-import Web.MyDriver;
 import org.openqa.selenium.*;
 
 import java.text.SimpleDateFormat;
@@ -17,7 +16,7 @@ public class LandingPage extends Commands {
     By yearSelectedLocator = By.xpath("//select[@class='pika-select pika-select-year']/option[@selected='selected']");
 
     //Temperature Bars:
-    By todayToggleLocator = By.xpath("(//span[@class='toggle'])[1]");
+    By todayToggleLocator = By.xpath("//div[@id='week']/a[1]");
     By todayMinTemp = By.xpath("(//span[@class='minTemp'])[1]");
     By todayMaxTemp = By.xpath("(//span[@class='maxTemp'])[1]");
     By dayExtrasMinTemp = By.xpath("((//div[@class='dayExtras']/div)[1]//span[@class='temp'])[1]");

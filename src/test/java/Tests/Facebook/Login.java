@@ -23,11 +23,10 @@ public class Login {
 
 
     /**
-     * facebook.com/
+     * Due May 12
      * Launch facebook.com
      * Click on Facebook Pay, Oculus, Instagram, Portal and Bulletin
      * Close ALL windows except Instagram
-     * <p>
      * Verify number of window-Handles is 1
      * Verify Page Title is Instagram
      * Verify Log in button on Instagram is disabled by default
@@ -38,7 +37,7 @@ public class Login {
         LandingPage lPage = new LandingPage();
 
         lPage.clickFooterLinks();
-        Misc.pause(3);
+        Misc.pause(5);
         lPage.closeTabs();
 
         InstaLandingPage obj = new InstaLandingPage();
