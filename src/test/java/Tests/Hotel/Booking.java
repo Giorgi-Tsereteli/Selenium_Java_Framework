@@ -1,0 +1,36 @@
+package Tests.Hotel;
+
+import Pages.Hotel.LandingPage;
+import Web.MyDriver;
+import org.testng.annotations.Test;
+
+public class Booking {
+
+    @Test
+    public void selectDateInCalendar() {
+        MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
+        LandingPage lpage = new LandingPage();
+        lpage.clickCheckInBox();
+        lpage.selectDateInJune2022("10");
+    }
+
+    @Test
+    public void selectFromSuggestions() {
+        MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
+        LandingPage lpage = new LandingPage();
+        lpage.enterDestination("new");
+        lpage.selectFromDestinationSuggestion("Manhattan");
+    }
+
+
+    @Test
+    public void selectDateInAnyCalendar() {
+        MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
+        LandingPage lpage = new LandingPage();
+        lpage.clickCheckInBox();
+        // lpage.selectDateFromAnyMonth("July 2022", "5");
+        lpage.selectDateFromAnyMonth("17 November 2022");
+    }
+
+
+}
