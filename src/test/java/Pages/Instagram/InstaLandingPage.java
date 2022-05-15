@@ -12,7 +12,7 @@ public class InstaLandingPage extends Commands {
 
     // Methods
     public int activeWindowCount() {
-        return myWindowHandles().size();
+        return getAllWindowHandles().size();
     }
 
     public String instagramPageTitle() {

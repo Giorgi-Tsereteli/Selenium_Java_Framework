@@ -22,22 +22,13 @@ public class Login {
     }
 
 
-    /**
-     * Due May 12
-     * Launch facebook.com
-     * Click on Facebook Pay, Oculus, Instagram, Portal and Bulletin
-     * Close ALL windows except Instagram
-     * Verify number of window-Handles is 1
-     * Verify Page Title is Instagram
-     * Verify Log in button on Instagram is disabled by default
-     */
     @Test
     public void footerLinkVerification() {
         MyDriver.launchUrlOnNewWindow("https://www.facebook.com/");
         LandingPage lPage = new LandingPage();
 
         lPage.clickFooterLinks();
-        Misc.pause(5);
+        Misc.pause(4);
         lPage.closeTabs();
 
         InstaLandingPage obj = new InstaLandingPage();

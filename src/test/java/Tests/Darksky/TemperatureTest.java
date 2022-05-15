@@ -8,11 +8,6 @@ import Pages.Darksky.LandingPage;
 
 public class TemperatureTest {
 
-    /**
-     * Due May 12
-     * darksky.net
-     * Verify the current date is highlighted in Time Machine's calendar
-     */
     @Test
     public void verifyTodayDate() {
         MyDriver.launchUrlOnNewWindow("https://www.darksky.net/");
@@ -27,11 +22,6 @@ public class TemperatureTest {
     }
 
 
-    /**
-     * Due May 12
-     * darksky.net
-     * Verify same values are displayed in the Today's data
-     */
     @Test
     public void verifyTempBars() {
         MyDriver.launchUrlOnNewWindow("https://www.darksky.net/");
