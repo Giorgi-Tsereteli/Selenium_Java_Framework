@@ -3,19 +3,23 @@ package Tests.Hotel;
 import Helper.Misc;
 import Pages.Hotel.PracticeLandingPage;
 import Web.MyDriver;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.NoSuchElementException;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class PracticeBooking {
 
     /**
-     *  My practice version of same code that we did in class
+     * My practice version of same code that we did in class
      */
+
+    PracticeLandingPage obj = new PracticeLandingPage();
 
     //Select day in calendar
     @Test
     public void selectJuneDay() {
         MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
-        PracticeLandingPage obj = new PracticeLandingPage();
         obj.clickCheckInBtn();
         obj.selectCheckoutDay("17");
         Misc.pause(3);
@@ -26,21 +30,63 @@ public class PracticeBooking {
     @Test
     public void selectFromSuggestions() {
         MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
-        PracticeLandingPage obj = new PracticeLandingPage();
         obj.clickSearchBar();
-        obj.typeInSearchBar();
-        obj.clickOnSuggestion();
+        obj.typeInSearchBar("Colora");
+        obj.clickOnSuggestion("Denver");
         Misc.pause(3);
         MyDriver.quitWindows();
     }
 
-    // Fully automate calendar for user input "November 17 2022"
+
     @Test
     public void scrollInCalendar() {
         MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
-        PracticeLandingPage obj = new PracticeLandingPage();
         obj.clickCheckInBtn();
         obj.selectDayMonthYear("17 November 2022");
+        Misc.pause(3);
+        MyDriver.quitWindows();
+    }
+
+    @Test
+    public void verifyLoginError() {
+        MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
+        obj.clickSearchBtn();
+        Assert.assertTrue(obj.isSearchErrorDisplayed());
+        MyDriver.quitWindows();
+    }
+
+    @Test
+    public void verifyTravelerAddFunctions() {
+        MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
+        obj.clickOnTravelersBox();
+        obj.increaseChildTravelerCount();
+        Assert.assertTrue(obj.isTravelerErrorDisplayed());
+        obj.selectChildrenAge();
+        try {
+            Assert.assertFalse(obj.isTravelerErrorDisplayed());
+        } catch (NoSuchElementException | ElementNotVisibleException e) {
+            Assert.assertTrue(true);
+        }
+        obj.clickTravelerDoneBtn();
+        Misc.pause(3);
+        MyDriver.quitWindows();
+    }
+
+    @Test
+    public void verifyTravelerCountInDestination() {
+        MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
+        obj.clickSearchBar();
+        obj.typeInSearchBar("Seatt");
+        obj.clickOnSuggestion("Seattle");
+        obj.clickCheckInBtn();
+        obj.selectDayMonthYear("17 August 2022");
+        obj.clickCalendarDoneBtn();
+        obj.clickOnTravelersBox();
+        obj.increaseChildTravelerCount();
+        obj.selectChildrenAge();
+        obj.clickTravelerDoneBtn();
+        obj.clickSearchBtn();
+        Assert.assertTrue(obj.isTravelersCountSameBeforeAndAfter());
         Misc.pause(3);
         MyDriver.quitWindows();
     }
