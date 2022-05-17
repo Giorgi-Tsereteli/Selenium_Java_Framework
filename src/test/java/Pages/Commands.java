@@ -58,6 +58,10 @@ public class Commands {
         return findWebElement(locator).getText();
     }
 
+    public String getElementAttribute(By locator, String attributeName) {
+        return findWebElement(locator).getAttribute(attributeName);
+    }
+
 
     // isElement boolean methods
     public boolean isElementEnabled(By locator) {

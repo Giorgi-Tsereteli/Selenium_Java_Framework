@@ -63,7 +63,6 @@ public class LandingPage extends Commands {
 
     public void closeTabs() {
         Set<String> windowID = getAllWindowHandles();
-        System.out.println(windowID);
         String instagramID = null;
         for (String id : windowID) {
             MyDriver.getDriver().switchTo().window(id);
