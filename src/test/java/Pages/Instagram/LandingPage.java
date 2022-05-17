@@ -3,7 +3,7 @@ package Pages.Instagram;
 import Pages.Commands;
 import org.openqa.selenium.By;
 
-public class InstaLandingPage extends Commands {
+public class LandingPage extends Commands {
 
     // Locator Variables
     // Login Form:
