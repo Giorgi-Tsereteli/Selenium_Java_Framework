@@ -1,9 +1,11 @@
 package Pages;
 
 import Web.MyDriver;
+import com.google.common.base.Function;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.*;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 
@@ -13,11 +15,13 @@ public class Commands {
      * Methods present in this class
      *
      * - finElement();
+     * - findElement --> fluent wait
      * - finElements();
      *
      * - click();
      * - sendKeys();
      * - getText();
+     * - getElementAttribute();
      *
      * - isEnabled();
      * - isDisplayed();
@@ -30,14 +34,31 @@ public class Commands {
      *
      * - scroll methods
      *
-     * - selectByVisibleText();
+     * - select dropdown methods
      *
-     * - Calendar related methods
+     * - Calendar methods
      */
 
     // Finding element(s)
     public WebElement findWebElement(By locator) {
         return MyDriver.getDriver().findElement(locator);
+    }
+
+    public WebElement findWebElementWithWait(By locator) {
+        Wait fWait = new FluentWait(MyDriver.getDriver())
+                .withTimeout(Duration.ofSeconds(30))
+                .pollingEvery(Duration.ofSeconds(1))
+                .ignoring(NoAlertPresentException.class)
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(ElementClickInterceptedException.class)
+                .withMessage("Fluent wait timeout, waited for 30-seconds");
+
+        WebElement element = (WebElement) fWait.until(new Function<WebDriver, WebElement>() {
+            public WebElement apply(WebDriver driver) {
+                return driver.findElement(locator);
+            }
+        });
+        return element;
     }
 
     public List<WebElement> findWebElements(By locator) {
@@ -95,7 +116,7 @@ public class Commands {
     }
 
 
-    // Scroll related methods
+    // Scroll methods
     public WebElement scrollToElement(By locator) {
         WebElement element = null;
         for (int i = 0; i <= 15; i++) {
@@ -150,6 +171,43 @@ public class Commands {
         WebElement element = findWebElement(locator);
         Select dropdown = new Select(element);
         dropdown.selectByVisibleText(dataToSelect);
+    }
+
+
+    // Alert methods
+    Alert myAlert;
+    public void switchToAlert() {
+        WebDriverWait eWait = new WebDriverWait(MyDriver.getDriver(), 5);
+        eWait.until(ExpectedConditions.alertIsPresent());
+        myAlert = MyDriver.getDriver().switchTo().alert();
+    }
+
+    public void clickPositiveActionBtnOnAlert() {
+        if(myAlert == null) {
+            switchToAlert();
+        }
+        myAlert.accept();
+    }
+
+    public void clickNegativeActionBtnOnAlert() {
+        if(myAlert == null) {
+            switchToAlert();
+        }
+        myAlert.dismiss();
+    }
+
+    public String getTextFromAlert() {
+        if(myAlert == null) {
+            switchToAlert();
+        }
+        return myAlert.getText();
+    }
+
+    public void typeInAlert(String data) {
+        if(myAlert == null) {
+            switchToAlert();
+        }
+        myAlert.sendKeys(data);
     }
 
 }
