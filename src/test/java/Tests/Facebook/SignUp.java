@@ -1,8 +1,8 @@
 package Tests.Facebook;
 
 import Helper.Misc;
-import Pages.Facebook.LandingPage;
-import Pages.Facebook.SignUpPage;
+import Pages.Other.Facebook.LandingPage;
+import Pages.Other.Facebook.SignUpPage;
 import Web.MyDriver;
 import org.testng.annotations.Test;
 

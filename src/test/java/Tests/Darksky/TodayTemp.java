@@ -4,7 +4,7 @@ import Helper.Misc;
 import Web.MyDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import Pages.Darksky.LandingPage;
+import Pages.Other.Darksky.LandingPage;
 
 public class TodayTemp {
 

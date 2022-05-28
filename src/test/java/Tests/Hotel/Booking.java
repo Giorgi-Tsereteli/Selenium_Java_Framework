@@ -27,7 +27,7 @@ public class Booking {
         MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
         obj.clickSearchBar();
         obj.typeInSearchBar("Colora");
-        obj.clickOnSuggestion("Denver");
+        obj.clickDestinationSuggestion("Denver");
         Misc.pause(3);
         MyDriver.quitWindows();
     }
@@ -74,7 +74,7 @@ public class Booking {
         MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
         obj.clickSearchBar();
         obj.typeInSearchBar("Seatt");
-        obj.clickOnSuggestion("Seattle");
+        obj.clickDestinationSuggestion("Seattle");
         obj.clickCheckInBtn();
         obj.selectDayMonthYear("17 August 2022");
         obj.clickCalendarDoneBtn();

@@ -3,6 +3,7 @@ package Pages;
 import Web.MyDriver;
 import com.google.common.base.Function;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
@@ -32,11 +33,21 @@ public class Commands {
      * - getCurrentUrl();
      * - getTitle();
      *
+     *  - Actions
+     *      - Drag & Drop
+     *
      * - scroll methods
      *
      * - select dropdown methods
      *
      * - Calendar methods
+     *
+     * - Alert
+     *      - Switch, Accept, Decline, GetText & Type
+     *
+     * - Iframe
+     *      - Switch by frameID, Index & WebElement.
+     *      - Switch back to default content
      */
 
     // Finding element(s)
@@ -83,6 +94,11 @@ public class Commands {
         return findWebElement(locator).getAttribute(attributeName);
     }
 
+    // Clearing input field
+    public void clearField(By locator) {
+        findWebElement(locator).clear();
+    }
+
 
     // isElement boolean methods
     public boolean isElementEnabled(By locator) {
@@ -113,6 +129,16 @@ public class Commands {
 
     public String pageTitle() {
         return MyDriver.getDriver().getTitle();
+    }
+
+
+    // Action methods
+    public void dragAndDropElement(By sourceLocator, By targetLocator) {
+        // Source is what u click to drag. Target is where u drop it
+        Actions a = new Actions(MyDriver.getDriver());
+        WebElement source = findWebElement(sourceLocator);
+        WebElement target = findWebElement(targetLocator);
+        a.dragAndDrop(source,target).build().perform();
     }
 
 
@@ -176,6 +202,7 @@ public class Commands {
 
     // Alert methods
     Alert myAlert;
+
     public void switchToAlert() {
         WebDriverWait eWait = new WebDriverWait(MyDriver.getDriver(), 5);
         eWait.until(ExpectedConditions.alertIsPresent());
@@ -183,31 +210,53 @@ public class Commands {
     }
 
     public void clickPositiveActionBtnOnAlert() {
-        if(myAlert == null) {
+        if (myAlert == null) {
             switchToAlert();
         }
         myAlert.accept();
     }
 
     public void clickNegativeActionBtnOnAlert() {
-        if(myAlert == null) {
+        if (myAlert == null) {
             switchToAlert();
         }
         myAlert.dismiss();
     }
 
     public String getTextFromAlert() {
-        if(myAlert == null) {
+        if (myAlert == null) {
             switchToAlert();
         }
         return myAlert.getText();
     }
 
     public void typeInAlert(String data) {
-        if(myAlert == null) {
+        if (myAlert == null) {
             switchToAlert();
         }
         myAlert.sendKeys(data);
+    }
+
+
+    // Frame methods
+    public void switchToFrame(String frameId) {
+        // Method
+        MyDriver.getDriver().switchTo().frame(frameId);
+    }
+
+    public void switchToFrame(By locator) {
+        // Method to switch on Frame using iframe-element
+        WebElement myFrame = findWebElement(locator);
+        MyDriver.getDriver().switchTo().frame(myFrame);
+    }
+
+    public void switchToFrame(int frameIndex) {
+        // Method to switch on Frame using iframe-index
+        MyDriver.getDriver().switchTo().frame(frameIndex);
+    }
+
+    public void switchToMainWindowFromFrame() {
+        MyDriver.getDriver().switchTo().defaultContent();
     }
 
 }
