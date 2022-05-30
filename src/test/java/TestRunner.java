@@ -6,7 +6,8 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = {"src/test/resources"},
         glue = {"StepDefinition"},
-        tags = "@ddt or @smoke",
+        tags = "@star",
+        // Due to my cucumber config, use following:
         // "and" -> TC with both tags
         // "or" -> TC with one or other tag
         // "not" -> TC with one tag but not other
@@ -14,9 +15,12 @@ import org.junit.runner.RunWith;
         plugin = {"pretty", "html:reports/default.html"}
 
         /*
-          If you want to supply tags form the command line
-          comment tags line in the testRunner file, and use below command:
+          Terminal command for tags and property file:
               mvn clean test -Dcucumber.options="--tags @tag1,@tag2"
+              mvn clean test -Dcucumber.options="--tags @tag1" -DrunOn=sauce
+              mvn clean test -Dcucumber.options="--tags @tag1" -DrunOn=local
+
+              Remember, if u forget to set browser version to latest in properties, firefox won't work on sauce labs
        */
 )
 

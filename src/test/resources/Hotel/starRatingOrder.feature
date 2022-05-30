@@ -2,7 +2,7 @@ Feature: Star Rating Filter
 
   Background:
     Given I am on www.hotels.com
-
+  @star
   Scenario: Check star rating order
     When I click search bar
       And I type destination Orla
