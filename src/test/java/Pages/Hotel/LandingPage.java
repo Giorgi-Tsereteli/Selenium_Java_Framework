@@ -12,6 +12,7 @@ public class LandingPage extends Commands {
     // Locator variables
     // Check in/out related locators
     By checkInBoxLocator = By.id("d1-btn");
+    By checkOutBoxLocator = By.id("d2-btn");
     By checkOutDaysLocator = By.xpath("//h2[text()='June 2022']/following-sibling::table//button[@data-day]");
 
     // Suggestion related locators
@@ -46,6 +47,11 @@ public class LandingPage extends Commands {
         Misc.pause(1);
     }
 
+    public void clickCheckOutBtn() {
+        click(checkOutBoxLocator);
+        Misc.pause(1);
+    }
+
     public void selectCheckoutDay(String day) {
         List<WebElement> daysToSelect = findWebElements(checkOutDaysLocator);
         for (WebElement value : daysToSelect) {
@@ -76,7 +82,7 @@ public class LandingPage extends Commands {
         Misc.pause(2);
     }
 
-    public void clickOnSuggestion(String destination) {
+    public void clickDestinationSuggestion(String destination) {
         selectFromSuggestions(destinationSuggestions, destination);
         Misc.pause(1);
     }

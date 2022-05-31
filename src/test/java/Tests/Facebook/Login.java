@@ -1,7 +1,7 @@
 package Tests.Facebook;
 
 import Helper.Misc;
-import Pages.Instagram.LandingPage;
+import Pages.Other.Instagram.LandingPage;
 import Web.MyDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,7 +11,7 @@ public class Login {
     @Test
     public void enterLoginInfo() {
         MyDriver.launchUrlOnNewWindow("https://www.facebook.com/");
-        Pages.Facebook.LandingPage lPage = new Pages.Facebook.LandingPage();
+        Pages.Other.Facebook.LandingPage lPage = new Pages.Other.Facebook.LandingPage();
         lPage.enterLoginEmail("rickdeckard@bladerunner.com");
         lPage.enterLoginPassword("nexus6");
         Assert.assertTrue(lPage.isLoginButtonEnabled());
@@ -24,7 +24,7 @@ public class Login {
     @Test
     public void footerLinkVerification() {
         MyDriver.launchUrlOnNewWindow("https://www.facebook.com/");
-        Pages.Facebook.LandingPage lPage = new Pages.Facebook.LandingPage();
+        Pages.Other.Facebook.LandingPage lPage = new Pages.Other.Facebook.LandingPage();
 
         lPage.clickFooterLinks();
         Misc.pause(4);

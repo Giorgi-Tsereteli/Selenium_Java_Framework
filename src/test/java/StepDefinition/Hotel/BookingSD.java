@@ -1,5 +1,6 @@
 package StepDefinition.Hotel;
 
+import Helper.Misc;
 import Pages.Hotel.LandingPage;
 import Web.MyDriver;
 import io.cucumber.java.en.Given;
@@ -68,20 +69,22 @@ public class BookingSD {
     }
 
 
-    // Search destination before & after step def
+    // Search destination step def
     @When("I click search bar")
     public void slickSearchBar() {
         obj.clickSearchBar();
     }
 
-    @When("I Type Seatt")
-    public void typeDestination() {
-        obj.typeInSearchBar("Seatt");
+    //Seatt
+    @When("^I type destination (.+)$")
+    public void typeDestination(String inputDestination) {
+        obj.typeInSearchBar(inputDestination);
     }
 
-    @When("I click on Seattle suggestion")
-    public void clickSuggestion() {
-        obj.clickOnSuggestion("Seattle");
+    //Seattle
+    @When("^I click on (.+) suggestion$")
+    public void clickSuggestion(String place) {
+        obj.clickDestinationSuggestion(place);
     }
 
     @When("I click on Check In field")
@@ -89,9 +92,15 @@ public class BookingSD {
         obj.clickCheckInBtn();
     }
 
-    @When("I select 17 August 2022")
-    public void selectDate() {
-        obj.selectDayMonthYear("17 August 2022");
+    @When("I click on Check Out field")
+    public void clickCheckOut() {
+        obj.clickCheckOutBtn();
+    }
+
+    //17 August 2022
+    @When("^I select date (.+)$")
+    public void selectDate(String dateCal) {
+        obj.selectDayMonthYear(dateCal);
     }
 
     @When("I click calendar done button")
@@ -102,6 +111,7 @@ public class BookingSD {
     @Then("I verify traveler count is same as before")
     public void verifyTravelersCount() {
         Assert.assertTrue(obj.isTravelersCountSameBeforeAndAfter());
+        Misc.pause(3);
         MyDriver.quitWindows();
     }
 
