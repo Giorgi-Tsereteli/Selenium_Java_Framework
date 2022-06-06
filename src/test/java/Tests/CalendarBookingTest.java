@@ -1,4 +1,4 @@
-package Tests.Hotel;
+package Tests;
 
 import Helper.Misc;
 import Pages.Hotel.LandingPage;
@@ -8,7 +8,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Booking {
+public class CalendarBookingTest {
 
     LandingPage obj = new LandingPage();
 

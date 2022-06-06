@@ -169,6 +169,12 @@ public class Commands {
         }
     }
 
+    public void scrollToElementIntoView (By locator){
+        WebElement element = MyDriver.getDriver().findElement(locator);
+        JavascriptExecutor executor = (JavascriptExecutor) MyDriver.getDriver();
+        executor.executeScript("arguments[0].scrollIntoView();", element);
+    }
+
 
     // Calendar, Suggestions & Dropdowns
     public void selectDateInCalendar(By locator, String userDate) {

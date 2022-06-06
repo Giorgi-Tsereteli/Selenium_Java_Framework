@@ -1,4 +1,4 @@
-package StepDefinition.Hotel;
+package StepDefinition;
 
 import Helper.Misc;
 import Pages.Hotel.SearchResultsPage;
