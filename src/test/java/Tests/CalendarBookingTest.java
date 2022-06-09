@@ -1,6 +1,5 @@
 package Tests;
 
-import Helper.Misc;
 import Pages.Hotel.LandingPage;
 import Web.MyDriver;
 import org.openqa.selenium.ElementNotVisibleException;
@@ -17,10 +16,8 @@ public class CalendarBookingTest {
         MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
         obj.clickCheckInBtn();
         obj.selectCheckoutDay("17");
-        Misc.pause(3);
         MyDriver.quitWindows();
     }
-
 
     @Test
     public void selectFromSuggestions() {
@@ -28,20 +25,16 @@ public class CalendarBookingTest {
         obj.clickSearchBar();
         obj.typeInSearchBar("Colora");
         obj.clickDestinationSuggestion("Denver");
-        Misc.pause(3);
         MyDriver.quitWindows();
     }
-
 
     @Test
     public void scrollInCalendar() {
         MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
         obj.clickCheckInBtn();
         obj.selectDayMonthYear("17 November 2022");
-        Misc.pause(3);
         MyDriver.quitWindows();
     }
-
 
     @Test
     public void verifySearchError() {
@@ -51,23 +44,21 @@ public class CalendarBookingTest {
         MyDriver.quitWindows();
     }
 
-
     @Test
     public void verifyTravelerAddFunctions() {
         MyDriver.launchUrlOnNewWindow("https://www.hotels.com");
         obj.clickOnTravelersBox();
-        obj.increaseChildTravelerCount();
+        obj.increaseChildTravelerCount(2);
         Assert.assertTrue(obj.isTravelerErrorDisplayed());
-        obj.selectChildrenAge();
+        obj.selectFirstChildAge("3");
+        obj.selectSecondChildAge("6");
         try {
             Assert.assertFalse(obj.isTravelerErrorDisplayed());
         } catch (NoSuchElementException | ElementNotVisibleException e) {
             Assert.assertTrue(true);
         }
-        Misc.pause(3);
         MyDriver.quitWindows();
     }
-
 
     @Test
     public void verifyTravelerCountInDestination() {
@@ -79,12 +70,12 @@ public class CalendarBookingTest {
         obj.selectDayMonthYear("17 August 2022");
         obj.clickCalendarDoneBtn();
         obj.clickOnTravelersBox();
-        obj.increaseChildTravelerCount();
-        obj.selectChildrenAge();
+        obj.increaseChildTravelerCount(2);
+        obj.selectFirstChildAge("2");
+        obj.selectSecondChildAge("5");
         obj.clickTravelerDoneBtn();
         obj.clickSearchBtn();
         Assert.assertTrue(obj.isTravelersCountSameBeforeAndAfter());
-        Misc.pause(3);
         MyDriver.quitWindows();
     }
 }

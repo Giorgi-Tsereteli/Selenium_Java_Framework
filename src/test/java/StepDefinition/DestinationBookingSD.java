@@ -1,7 +1,7 @@
 package StepDefinition;
 
-import Helper.Misc;
 import Pages.Hotel.LandingPage;
+import Pages.Hotel.SearchResultsPage;
 import Web.MyDriver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,14 +10,16 @@ import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 
-public class BookingSD {
+public class DestinationBookingSD {
 
     LandingPage obj = new LandingPage();
+    SearchResultsPage srp = new SearchResultsPage();
 
     @Given("I am on www.hotels.com")
     public void launchHotels() {
         MyDriver.launchUrlOnNewWindow("https://www.hotels.com/");
     }
+
 
     // Search error step def
     @When("I click destination search button")
@@ -28,7 +30,6 @@ public class BookingSD {
     @Then("I verify search error is displayed")
     public void verifySearchErrorMessage() {
         Assert.assertTrue(obj.isSearchErrorDisplayed());
-        MyDriver.quitWindows();
     }
 
 
@@ -38,9 +39,17 @@ public class BookingSD {
         obj.clickOnTravelersBox();
     }
 
-    @When("I add child travelers")
-    public void addChildren() {
-        obj.increaseChildTravelerCount();
+    int totalAdultCount;
+
+    @When("^I add (.+) adult travelers$")
+    public void addAdults(int adultCount) {
+        obj.increaseAdultTravelerCount(adultCount);
+        totalAdultCount = Integer.valueOf(adultCount);
+    }
+
+    @When("^I add (.+) child travelers$")
+    public void addChildren(int childCount) {
+        obj.increaseChildTravelerCount(childCount);
     }
 
     @Then("I verify age error is displayed")
@@ -48,9 +57,14 @@ public class BookingSD {
         Assert.assertTrue(obj.isTravelerErrorDisplayed());
     }
 
-    @When("I select children's age")
-    public void selectChildrensAge() {
-        obj.selectChildrenAge();
+    @When("^I select first child's age as (.+)$")
+    public void selectFirstChildAge(String age) {
+        obj.selectFirstChildAge(age);
+    }
+
+    @When("^I select second child's age as (.+)$")
+    public void selectSecondChildAge(String age) {
+        obj.selectSecondChildAge(age);
     }
 
     @Then("I verify age error is not displayed")
@@ -60,12 +74,21 @@ public class BookingSD {
         } catch (NoSuchElementException | ElementNotVisibleException e) {
             Assert.assertTrue(true);
         }
-        MyDriver.quitWindows();
     }
 
     @When("I click travelers done button")
     public void clickTravelersDoneBtn() {
         obj.clickTravelerDoneBtn();
+    }
+
+    @Then("I verify traveler count after search is same as before")
+    public void verifyTravelerCountBeforeAndAfterSearch() {
+        Assert.assertTrue(obj.isTravelersCountSameBeforeAndAfter());
+    }
+
+    @Then("I verify total count of travelers is correct")
+    public void verifyTravelerCountBeforeSearch() {
+        Assert.assertTrue(obj.isTotalTravelerCountCorrect(), "Fail - Added traveler count and displayed total don't match");
     }
 
 
@@ -75,18 +98,18 @@ public class BookingSD {
         obj.clickSearchBar();
     }
 
-    //Seatt
     @When("^I type destination (.+)$")
     public void typeDestination(String inputDestination) {
         obj.typeInSearchBar(inputDestination);
     }
 
-    //Seattle
-    @When("^I click on (.+) suggestion$")
+    @When("^I click on (.+) from destination suggestion$")
     public void clickSuggestion(String place) {
         obj.clickDestinationSuggestion(place);
     }
 
+
+    // Calendar step def
     @When("I click on Check In field")
     public void clickCheckIn() {
         obj.clickCheckInBtn();
@@ -97,7 +120,6 @@ public class BookingSD {
         obj.clickCheckOutBtn();
     }
 
-    //17 August 2022
     @When("^I select date (.+)$")
     public void selectDate(String dateCal) {
         obj.selectDayMonthYear(dateCal);
@@ -108,11 +130,35 @@ public class BookingSD {
         obj.clickCalendarDoneBtn();
     }
 
-    @Then("I verify traveler count is same as before")
-    public void verifyTravelersCount() {
-        Assert.assertTrue(obj.isTravelersCountSameBeforeAndAfter());
-        Misc.pause(3);
+    @Then("I verify disabled day count is correct")
+    public void verifyCheckInDisabledDayCount() {
+        Assert.assertTrue(obj.isDisabledPastDayCountCorrect());
+    }
+
+    @Then("I verify previous month button is disabled")
+    public void verifyPreviousMonthBtn() {
+        Assert.assertTrue(obj.isPreviousMonthBtnDisabled());
+    }
+
+    @When("I quit browser")
+    public void quitBrowserWindows() {
         MyDriver.quitWindows();
     }
 
+
+    // Search Page step def
+    @Then("I verify Tell us how we can improve our site is displayed")
+    public void verifyFeedbackSentenceIsDisplayed() {
+        Assert.assertTrue(srp.isShareFeedbackTextDisplayed(),"Test Failed - Sentence is not displayed");
+    }
+
+    @Then("I verify share feedback button is displayed")
+    public void verifyShareFeedbackBtnIsDisplayed() {
+        Assert.assertTrue(srp.isShareFeedbackBtnDisplayed(),"Test Failed - Share feedback btn is not displayed");
+    }
+
+    @Then("I verify share feedback button is enabled")
+    public void verifyShareFeedbackBtnIsEnabled() {
+        Assert.assertTrue(srp.isShareFeedbackBtnEnabled(),"Test Failed - Share feedback btn is not enabled");
+    }
 }
