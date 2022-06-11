@@ -1,8 +1,6 @@
 package StepDefinition;
 
-import Helper.Misc;
 import Pages.Hotel.SearchResultsPage;
-import Web.MyDriver;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,7 +12,6 @@ public class lowestPriceSearchSD {
 
     @Then("I verify all popular filters are unchecked")
     public void verifyCheckboxes() {
-        Misc.pause(3);
         Assert.assertFalse(obj.isPopularFilterChecked());
     }
 
@@ -28,13 +25,11 @@ public class lowestPriceSearchSD {
     public void verifyLowestPrice(String hotelPrice) {
         int price = Integer.valueOf(hotelPrice.substring(1));
         Assert.assertTrue(obj.getLowestPrice() <= price);
-        MyDriver.quitWindows();
     }
 
     @Then("I verify Star rating is displayed in increasing order")
     public void verifyStarOrder() {
         Assert.assertTrue(obj.verifyStarOrder());
-        MyDriver.quitWindows();
     }
 
     @And("I enter PPPP in search by property")
@@ -51,6 +46,5 @@ public class lowestPriceSearchSD {
     @Then("I verify invalid data entered is displayed as one of the filters")
     public void verifyInvalidDataFilter() {
         Assert.assertTrue(obj.isRemovableFilterDisplayed());
-        MyDriver.quitWindows();
     }
 }

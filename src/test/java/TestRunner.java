@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = {"src/test/resources"},
         glue = {"StepDefinition"},
-        tags = "@star",
+        tags = "@Sprint-1",
         // Due to my cucumber config, use following:
         // "and" -> TC with both tags
         // "or" -> TC with one or other tag
