@@ -11,6 +11,8 @@ import java.util.List;
 public class LandingPage extends Commands {
 
     // Nav link Locators
+    By moreTravelDropdownLocator = By.xpath("//nav/div/button");
+    By dealsPageLinkLocator = By.xpath("//nav//div[@class='uitk-list']/a[@href='/hotel-deals/']");
     By topMenuSignInBtnLocator = By.xpath("//nav//button[text()='Sign in']");
     By innerMenuSignInBtnLocator = By.xpath("//div[@class='actions']//a[@data-stid='link-header-account-signin']");
     By signInBtnLocator = By.xpath("//nav//button[text()='Sign in']");
@@ -20,31 +22,32 @@ public class LandingPage extends Commands {
     By feedbackLinkLocator = By.xpath("//div[@class='header-guest-heading']/following-sibling::div//a/div[text()='Feedback']");
 
     // Check in/out locators
-    By checkInBoxLocator = By.id("d1-btn");
+    By checkInBoxLocator = By.id("date_form_field-btn");
     By checkOutBoxLocator = By.id("d2-btn");
     By checkOutDaysLocator = By.xpath("//h2[text()='June 2022']/following-sibling::table//button[@data-day]");
 
     // Search Suggestion locators
-    By searchBtnLocator = By.xpath("//button[text()='Search']");
+    By searchBtnLocator = By.id("submit_button");
     By searchErrorLocator = By.xpath("//div[@class='uitk-error-summary']");
     By searchBarLocator = By.xpath("//button[@aria-label='Going to']");
-    By searchBarInputLocator = By.id("location-field-destination");
+    By searchBarInputLocator = By.id("destination_form_field");
     By destinationSuggestions = By.xpath("//div[@class='uitk-typeahead-results']//div[contains(@class,'truncat') and not(contains(@class,'uitk'))]");
 
     // Traveler section locators
-    By travelersMenuLocator = By.xpath("//div[@id='adaptive-menu']");
-    By addAdultBtnLocator = By.xpath("//input[@id='adult-input-0']/following-sibling::button");
+    By travelersMenuLocator = By.xpath("//button[@type='button' and contains(text(),'travelers')]");
+    By addAdultBtnLocator = By.xpath("//input[@id='traveler_selector_adult_step_input-0']/following-sibling::button");
     By addChildBtnLocator = By.xpath("//input[@aria-label='Children Ages 0 to 17']/following-sibling::button");
     By childrenAgeErrorLocator = By.xpath("//div[@class='uitk-error-summary']/h3");
-    By firstChildAgeDropdownLocator = By.xpath("//select[@id='child-age-input-0-0']");
-    By secondChildAgeDropdownLocator = By.xpath("//select[@id='child-age-input-0-1']");
-    By travelerDoneBtnLocator = By.xpath("//button[@data-testid='guests-done-button']");
+    By firstChildAgeDropdownLocator = By.xpath("//select[@id='age-traveler_selector_children_age_selector-0-0']");
+    By secondChildAgeDropdownLocator = By.xpath("//select[@id='age-traveler_selector_children_age_selector-0-1']");
+    By travelerDoneBtnLocator = By.xpath("//button[@id='traveler_selector_done_button']");
     By travelerCountBeforeSearchLocator = By.xpath("//button[@data-testid='travelers-field-trigger']");
     By travelerCountAfterSearchLocator = By.xpath("//button[@data-stid='open-room-picker']/preceding-sibling::input");
 
     // Calendar locators
     By currentMonthYear = By.xpath("(//div[@class='uitk-date-picker-month']/h2)[1]");
     By nextMonthBtnLocator = By.xpath("(//button[@data-stid='date-picker-paging'])[2]");
+    By previousMonthEnabledBtnLocator = By.xpath("(//button[@data-stid='date-picker-paging'])[1]");
     By previousMonthBtnLocator = By.xpath("//button[@data-stid='date-picker-paging' and @disabled]");
     By calendarDoneBtnLocator = By.xpath("//button[@data-stid='apply-date-picker']");
     By calendarDisabledPastDays = By.xpath("//*[@class='uitk-date-picker-weeks']//button[contains(@class,'is-disabled')]");
@@ -53,17 +56,26 @@ public class LandingPage extends Commands {
     By rewardNightPromoLocator = By.xpath("//span[contains(text(), 'every 10 nights')]");
 
 
+    // Nav Bar
+    public void clickMoreTravelDropdown() {
+        click(moreTravelDropdownLocator);
+    }
+
+    public void clickDealsPageOption () {
+        clickWithWait(dealsPageLinkLocator);
+    }
+
     // Sign in/out
     public void clickSignInField() {
         click(topMenuSignInBtnLocator);
     }
 
     public void clickSignInBtn() {
-        findWebElementWithWait(innerMenuSignInBtnLocator).click();
+        clickWithWait(innerMenuSignInBtnLocator);
     }
 
     public void clickSignUpBtn() {
-        findWebElementWithWait(signUpBtnLocator).click();
+        clickWithWait(signUpBtnLocator);
     }
 
     public void clickFeedbackPage() {
@@ -80,11 +92,11 @@ public class LandingPage extends Commands {
         Misc.pause(1);
     }
 
-    public void clickCheckOutBtn() {
-        // I need help with removing wait from here
-        click(checkOutBoxLocator);
-        Misc.pause(1);
-    }
+//    public void clickCheckOutBtn() {
+//        // I need help with removing wait from here
+//        click(checkOutBoxLocator);
+//        Misc.pause(1);
+//    }
 
     public void selectCheckoutDay(String day) {
         List<WebElement> daysToSelect = findWebElements(checkOutDaysLocator);
@@ -141,6 +153,9 @@ public class LandingPage extends Commands {
     }
 
     public boolean isDisabledPastDayCountCorrect() {
+        if (isElementEnabled(previousMonthEnabledBtnLocator)) {
+            clickWithWait(previousMonthEnabledBtnLocator);
+        }
         int totalDisabledDayCount = findWebElements(calendarDisabledPastDays).size();
         int todayDate = DateLib.getCurrentDateAsInt();
         return todayDate - 1 == totalDisabledDayCount;
@@ -167,7 +182,7 @@ public class LandingPage extends Commands {
 
     public void increaseChildTravelerCount(int childNumber) {
         for (int i = 0; i < childNumber; i++) {
-            click(addChildBtnLocator);
+            clickWithWait(addChildBtnLocator);
             totalChildCount = Integer.valueOf(childNumber);
         }
     }
@@ -216,7 +231,8 @@ public class LandingPage extends Commands {
     }
 
     public boolean isTotalTravelerCountCorrect() {
-        String var = getElementText(travelerCountBeforeSearchLocator).split(" ")[2];
-        return Integer.valueOf(var) == totalAdultCount + totalChildCount;
+        String fullSentence = getElementText(travelersMenuLocator).split("\n")[1];
+        String totalCount = fullSentence.split(" ")[0];
+        return Integer.valueOf(totalCount) == totalAdultCount + totalChildCount;
     }
 }

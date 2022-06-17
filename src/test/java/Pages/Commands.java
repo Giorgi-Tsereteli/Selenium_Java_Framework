@@ -113,7 +113,7 @@ public class Commands {
     }
 
     public boolean isElementDisplayed(By locator) {
-        return findWebElement(locator).isDisplayed();
+        return findWebElementWithWait(locator).isDisplayed();
     }
 
     public boolean isElementSelected(By locator) {
@@ -153,6 +153,10 @@ public class Commands {
 
     public void closeActiveBrowserWindow() {
         MyDriver.getDriver().close();
+    }
+
+    public void navigateToPreviousPage() {
+        MyDriver.getDriver().navigate().back();
     }
 
 

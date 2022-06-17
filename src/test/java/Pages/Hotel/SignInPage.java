@@ -9,15 +9,15 @@ public class SignInPage extends Commands {
     By passwordInputLocator = By.xpath("//*[@id='loginFormPasswordInput']");
     By loginCheckboxLocator = By.xpath("//input[@type='checkbox']");
     By loginBtnLocator = By.xpath("//*[@id='loginFormSubmitButton']");
-    By signInErrorMessageLocator = By.xpath("//*[@id='loginFormErrorBanner']");
+    By signInErrorMessageLocator = By.xpath("//h3");
 
 
-    public void enterSignInEmail() {
-        type(emailInputLocator, "elliewilliams@lou.com");
+    public void enterSignInEmail(String email) {
+        type(emailInputLocator, email);
     }
 
-    public void enterSignInPassword() {
-        type(passwordInputLocator, "blablabla123123");
+    public void enterSignInPassword(String password) {
+        type(passwordInputLocator, password);
     }
 
     public void clickSignInCheckbox() {

@@ -3,6 +3,7 @@ package StepDefinition;
 import Pages.Hotel.LandingPage;
 import Pages.Hotel.SearchResultsPage;
 import Web.MyDriver;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -115,13 +116,23 @@ public class DestinationBookingSD {
         obj.clickCheckInBtn();
     }
 
-    @When("I click on Check Out field")
-    public void clickCheckOut() {
-        obj.clickCheckOutBtn();
-    }
+//    @When("I click on Check Out field")
+//    public void clickCheckOut() {
+//        obj.clickCheckOutBtn();
+//    }
 
     @When("^I select date (.+)$")
     public void selectDate(String dateCal) {
+        obj.selectDayMonthYear(dateCal);
+    }
+
+    @When("^I select check in date (.+)$")
+    public void selectCheckInDate(String dateCal) {
+        obj.selectDayMonthYear(dateCal);
+    }
+
+    @When("^I select check out date (.+)$")
+    public void selectCheckOutDate(String dateCal) {
         obj.selectDayMonthYear(dateCal);
     }
 
@@ -160,5 +171,20 @@ public class DestinationBookingSD {
     @Then("I verify share feedback button is enabled")
     public void verifyShareFeedbackBtnIsEnabled() {
         Assert.assertTrue(srp.isShareFeedbackBtnEnabled(),"Test Failed - Share feedback btn is not enabled");
+    }
+
+    @And("^I select (.+) star rating filter$")
+    public void selectStarRating(String userInput) {
+        srp.selectStarRating(userInput);
+    }
+
+    @Then("I verify star filter is correct")
+    public void verifyStarFilterDescription() {
+        Assert.assertTrue(srp.verifyAppliedStarFilter(),"Test Fail - Star filter was wrong");
+    }
+
+    @Then("I verify price filter is correct")
+    public void verifyPriceFilterValues() {
+        Assert.assertTrue(srp.verifyAppliedPriceFilter(),"Test Fail - Price filter was not correct");
     }
 }

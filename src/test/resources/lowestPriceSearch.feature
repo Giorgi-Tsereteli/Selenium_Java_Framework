@@ -8,10 +8,8 @@ Feature: Lowest price hotel automation
     And I type destination Orla
     And I click on Orlando from destination suggestion
     And I click on Check In field
-    And I select date 21 June 2022
-    And I click calendar done button
-    And I click on Check Out field
-    And I select date 25 June 2022
+    And I select check in date 21 July 2022
+    And I select check out date 25 July 2022
     And I click calendar done button
     And I click destination search button
     Then I verify all popular filters are unchecked

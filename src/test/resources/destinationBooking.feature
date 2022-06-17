@@ -11,6 +11,7 @@ Feature: Destination Booking Verification
   Scenario: Verify enter-children's age error
     When I click travelers field
     And I add 2 child travelers
+    And I click travelers done button
     Then I verify age error is displayed
     When I select first child's age as 7
     And I select second child's age as 2
@@ -22,7 +23,7 @@ Feature: Destination Booking Verification
     And I type destination Seatt
     And I click on Seattle from destination suggestion
     And I click on Check In field
-    And I select date 18 June 2022
+    And I select check in date 18 July 2022
     And I click calendar done button
     And I click travelers field
     And I add 2 child travelers
@@ -39,15 +40,13 @@ Feature: Destination Booking Verification
     And I type destination bora
     And I click on Bora Bora from destination suggestion
     And I click on Check In field
-    And I select date 1 August 2022
-    And I click calendar done button
-    And I click on Check Out field
-    And I select date 10 August 2022
+    And I select check in date 1 August 2022
+    And I select check out date 10 August 2022
     And I click calendar done button
     And I click destination search button
     Then I verify Tell us how we can improve our site is displayed
-    Then I verify share feedback button is displayed
-    Then I verify share feedback button is enabled
+    And I verify share feedback button is displayed
+    And I verify share feedback button is enabled
     And I quit browser
 
   @Sprint-1 @TC-18
@@ -65,9 +64,22 @@ Feature: Destination Booking Verification
   Scenario: Verify calendar past dates and back button are disabled
     When I click on Check In field
     Then I verify disabled day count is correct
-    Then I verify previous month button is disabled
+    And I verify previous month button is disabled
     When I click calendar done button
-    And I click on Check Out field
-    Then I verify disabled day count is correct
-    Then I verify previous month button is disabled
+    And I quit browser
+
+  @Sprint-2 @TC-23
+  Scenario: Verify search results using star rating and price
+    When I click search bar
+    And I type destination Manha
+    And I click on Manhattan from destination suggestion
+    And I click on Check In field
+    And I select check in date 10 August 2022
+    And I select check out date 15 August 2022
+    And I click calendar done button
+    And I click destination search button
+    And I select 5 star rating filter
+    And I sort the search results using price
+    Then I verify star filter is correct
+    And I verify price filter is correct
     And I quit browser
