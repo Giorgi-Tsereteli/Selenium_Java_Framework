@@ -23,14 +23,14 @@ public class SignInSD {
         obj.clickSignInBtn();
     }
 
-    @When("I enter email in sign in form")
-    public void enterSignInEmail() {
-        signInObj.enterSignInEmail();
+    @When("^I enter email (.+) in sign in form$")
+    public void enterSignInEmail(String userInput) {
+        signInObj.enterSignInEmail(userInput);
     }
 
-    @When("I enter password in sign in form")
-    public void enterSignInPassword() {
-        signInObj.enterSignInPassword();
+    @When("^I enter password (.+) in sign in form$")
+    public void enterSignInPassword(String userInput) {
+        signInObj.enterSignInPassword(userInput);
     }
 
     @When("I check sign in checkbox")
@@ -51,15 +51,5 @@ public class SignInSD {
     @When("I click on sign up button")
     public void clickSignUpBtn() {
         obj.clickSignUpBtn();
-    }
-
-    @When("I enter email in sign up form")
-    public void enterSignUpEmail() {
-        signUpObj.enterEmail();
-    }
-
-    @When("I enter password in sign up form")
-    public void enterSignUpPassword() {
-        signUpObj.enterPassword();
     }
 }

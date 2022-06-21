@@ -1,7 +1,6 @@
 package StepDefinition;
 
 import Pages.Hotel.SignUpPage;
-import Web.MyDriver;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
@@ -9,6 +8,43 @@ import org.testng.Assert;
 public class SignUpSD {
 
     SignUpPage sup = new SignUpPage();
+
+    @When("^I enter email (.+) in sign up form$")
+    public void enterSignUpEmail(String userInput) {
+        sup.enterEmail(userInput);
+    }
+
+    @When("^I enter first name (.+) in sign up form$")
+    public void enterSignUpFirstName(String userInput) {
+        sup.enterFirstName(userInput);
+    }
+
+    @When("^I enter last name (.+) in sign up form$")
+    public void enterSignUpLastName(String userInput) {
+        sup.enterLastName(userInput);
+    }
+
+    @When("^I enter password (.+) in sign up form$")
+    public void enterSignUpPassword(String userInput) {
+        sup.enterPassword(userInput);
+    }
+
+    @Then("^I verify (.+) sign up error is displayed$")
+    public void verifyFirstNameErrorMessage(String userInput) {
+        Assert.assertTrue(sup.signUpErrors(userInput),"Test Fail - Error was not displayed");
+    }
+
+    @Then("I verify that sign up checkbox is enabled and displayed")
+    public void verifySignUpCheckbox() {
+        Assert.assertTrue(sup.isSignUpCheckboxEnabled(),"Test Fail - Checkbox is not enabled");
+        Assert.assertTrue(sup.isSignUpCheckboxDisplayed(),"Test Fail - Checkbox is not displayed");
+    }
+
+    @Then("I verify that continue button is displayed and not enabled")
+    public void verifyContinueButton() {
+        Assert.assertFalse(sup.isContinueBtnEnabled(),"Test Fail - Continue btn was enabled");
+        Assert.assertTrue(sup.isContinueBtnDisplayed(),"Test Fail - Continue btn was not displayed");
+    }
 
     @When("I click on privacy page link")
     public void clickPrivacyPageLink() {
